@@ -8,6 +8,33 @@
 <meta name="Description" content="">
 <script src='https://d3js.org/d3.v4.min.js'></script>
 <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+<script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+<script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+
+<script>
+d3.csv('data/dessert.csv', function(data){
+  for(var i=0; i<data.length; i++){
+  console.log(data[i])
+  console.log(data[i].search)
+  console.log(data[i].name)
+  console.log(data[i].url)
+}
+
+  d3.select('body')
+  .selectAll('div')
+  .data(data)
+  .enter()
+  .append('div')
+  .text(function(d){return d.url})
+
+  d3.image(
+  data.url,   { crossOrigin: "anonymous" }).then((img) => {
+                  document.body.append(data.name);
+                  document.body.append(img);
+              });
+
+})
+</script>
 
 
 <title>csv</title>
@@ -15,49 +42,5 @@
 
 
 <body>
-<script>
-  d3.csv("data/data.csv",type,function(error,data){
-    if(error) throw error;
-  console.log(data);
-
-
-  data.forEach(function(d){
-    document.write(d.name+","+d.age+"<br>");
-  });
-
-});
-
-function type(d){
-  d.name=+d.name;
-  d.age=+d.age;
-  return d;
-}
-
-</script>
-
-
-
 </body>
 </html>
-
-
-<!--<script>test();</script>-->
-<!--
-  <script>
-  d3.csv("C:\Users\yhyel\OneDrive\바탕 화면\yanghyelin\shoppingRecWEB\biproj\data\data", function(data){
-    for(var i=0; i<data.length; i++){
-    console.log(data[i])
-    console.log(data[i].search)
-    console.log(data[i].name)
-    console.log(data[i].numberofstars)
-    console.log(data[i].prize)
-    console.log(data[i].weight)}
-
-    d3.select('body')
-    .selectAll('p')
-    .data(data)
-    .enter()
-    .append('p')
-    .text(function(d){return d.search+","+d.name+","+d.numberofstars+","+d.prize+","+d.weight})
-  })
-</script>-->
