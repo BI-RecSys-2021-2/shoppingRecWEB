@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Generator" content="EditPlus@">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+
+
+    <style media="screen">
+        body{display: flex;
+            white-space: normal;
+            width: 200px;
+            height:200px;
+
+        }
+    </style>
+
+    <script type="text/javascript">
+        temp = location.href.split("?");
+        categories=temp[1].split(":");
+        category=categories[0];
+    </script>
+
+    <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+
+    <title>FOR YOU</title>
+</head>
+
+
+<body>
+<div class="nav">
+    <div class="nav-item"><a href="main.html">HOME</a></div>
+    <div>    /</div>
+    <div class="nav-item"><a href="categorypage.html">Categories</a></div>
+</div>
+<script>
+    const csv = d3.csv(`data/${category}.csv`)
+    csv.then(function(data) {
+        data.forEach(function(d) {
+            d3.select('body')
+                .selectAll('div')
+                .data(d)
+                .enter()
+                .append('div')
+
+            d3.image(
+                d.url, { crossOrigin: "anonymous" }).then((img) => {
+                document.body.append(d.search);
+                document.body.append(img);
+            }).catch(function(err) {
+                console.log('then error : ', err);
+            });
+        });
+    })
+</script>
+</body>
+</html>
