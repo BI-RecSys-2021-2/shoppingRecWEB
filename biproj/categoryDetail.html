@@ -8,9 +8,6 @@
     <meta name="Description" content="">
 
 <link rel="stylesheet" href="./public/css/categoryDetail.css">
-  
-
-
 
     <script type="text/javascript">
         temp = location.href.split("?");
@@ -29,9 +26,9 @@
 
 <body>
 <div class="nav">
-    <div class="nav-item"><a href="main.html">HOME</a></div>
-    <div>    /</div>
-    <div class="nav-item"><a href="categorypage.html">Categories</a></div>
+    <div class="nav-item"><a href="main.html"><img id="home" src = "image/home.png" width="30px"; height="30px"></a></div>
+    <div class="nav-item"><a href="categorypage.html"><img id="bar" src = "image/bar.png" width="35px"; height="35px"></a></div>
+    <div class="title">FOR YOU</div>
 </div>
 
 <div class="container">
@@ -50,20 +47,29 @@
                 d.url, {crossOrigin: "anonymous"}).then((img) => {
                 img.className = "product";
                 document.body.append(img);
-                document.body.append(d.search);
-
-
-
-            }).catch(function(err) {
+          }).catch(function(err) {
                 console.log('then error : ', err);
             });
+
+            function sendFunc( aValue )
+            { name=d.name;
+              rating=d.numberofstars;
+              weight=d.weght;
+              image=d.url
+              location.href="detailpage.html?"+name+":"+rating+":"+weight+":"+image; }
 
 
 
         });
+
+
     })
+
+
 
 </script>
 </div>
 </body>
 </html>
+
+<!--document.body.append(d.search);-->
