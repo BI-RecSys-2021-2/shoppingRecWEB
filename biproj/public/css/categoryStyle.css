@@ -1,6 +1,12 @@
+body{
+  background-image: url('https://img.freepik.com/free-photo/flat-lay-composition-vegetables-with-copyspace_23-2148190210.jpg?size=626&ext=jpg');
+  background-repeat: no-repeat;
+  background-size : cover;
+}
+
 .nav
 {height: 70px;
-    border-bottom: 2px solid black;
+    border-bottom: 4px solid #78766B;
     display: flex;
     align-items: center;
 }
@@ -8,6 +14,8 @@
 { margin: 20px;}
 
 .title{font-size: 60px;
+  font-style:italic;
+    color:#78766B;
     font-weight: bold;
     margin-left: 30%;
     align-items: center;
@@ -31,11 +39,12 @@
 {display: flex;
     align-items: center;}
 .category
-{display: flex;
+{  background-color: rgba( 255, 255, 255, 0.7 );
+  display: flex;
     align-items: center;
     width: 200px;
     height:200px;
-    border: 3px solid black;
+    border: 3px solid #78766B;
     margin: 30px;
     margin-bottom: 10px;
     border-radius: 6px;
