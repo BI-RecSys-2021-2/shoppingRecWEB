@@ -51,92 +51,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <link rel="stylesheet" href="style.css">
-
-  <style media="screen">
-    .nav {
-      height: 70px;
-      border-bottom: 1px solid black;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-itme {
-      margin-left: 10px;
-    }
-
-    .productname {
-      font-size: 60px;
-      font-weight: bold;
-    }
-
-    .name {
-      font-size: :30px;
-      line-height: 3em;
-    }
-
-    .prize {
-      font-size: :30px;
-      line-height: 3em;
-    }
-
-    .weight {
-      font-size: :30px;
-      line-height: 3em;
-    }
-
-    .numberofstars {
-      font-size: :30px;
-      line-height: 6em;
-    }
-
-    .productrating {
-      font-size: 40px;
-      font-weight: 30;
-    }
-
-    .main {
-      width: 1000px;
-      margin: 0 auto;
-    }
-
-    .itemslist {
-      display: flex;
-    }
-
-    .recitem {
-      display: flex;
-      width: 300px;
-      height: 200px;
-      border: 1px solid black;
-      margin: 20px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-    }
-
-    .description {
-      margin-bottom: 20px;
-    }
-
-    .itemslist2 {
-      display: flex;
-    }
-
-    .recitems2 {
-      display: flex;
-    }
-
-    .item {
-      display: inline-block;
-      float: left;
-      width: 300px;
-      height: 200px;
-      border: 1px solid black;
-      margin: 20px;
-      margin-bottom: 10px;
-      border-radius: 4px;
-    }
-  </style>
+<link rel="stylesheet" href="./public/css/detailpage.css">
 
 
 
@@ -159,21 +74,23 @@
 
 
   <div class="nav">
-    <div class="nav-item"><a href="main.html">HOME</a></div>
-    <div>/</div>
-    <div class="nav-item"><a href="categorypage.html">Categories</a></div>
+      <div class="nav-item"><a href="categorypage.html"><img id="bar" src = "image/bar.png" width="35px"; height="35px"></a></div>
+      <div class="title">FOR YOU</div>
   </div>
+
 
 
   <div class="main">
 
     <div class="productname">Product name</div><br>
-    <div class="productrating">ratings</div>
+      <div class="productrating">ratings</div>
 
-    <div class="items">
-      <div class="item">item1</div>
+      <div class="items">
+        <div class="item">item1</div>
 
-    </div>
+      </div>
+
+
 
     <div class="right">
       <div class="vertical-align: top;">
@@ -209,6 +126,7 @@
         <div class="recitem">item10</div>
       </div>
     </div>
+  </div>
     <script>
       const csv = d3.csv(`data/${category_all}.csv`)
       csv.then(function (data) {
@@ -248,27 +166,11 @@
             }
           })
         });
-        // d3.image(
-        //   d.url, {
-        //     crossOrigin: "anonymous"
-        //   }).then((img) => {
-        //   var a_url = document.createElement('a');
-        //   a_url.href = "detailpage.html?" + d.search
-        //   img.className = "product";
-        //   a_url.appendChild(img)
-        //   d3.select('.recitem').append(a_url);
-        // }).catch(function (err) {
-        //   console.log('then error : ', err);
-        // });
-
-
-
-
-
-
 
       })
     </script>
 </body>
 
 </html>
+
+<!--  -->

@@ -1,28 +1,53 @@
+body{
+  background-image: url('https://img.freepik.com/free-photo/flat-lay-composition-vegetables-with-copyspace_23-2148190210.jpg?size=626&ext=jpg');
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size : cover;
+}
 .nav
 {height: 70px;
 border-bottom: 1px solid black;
 display: flex;
 align-items: center;
 }
-.nav-itme
+.nav-item
 {margin-left:10px;}
-.productname{font-size: 60px;
+.title{font-size: 60px;
+    font-weight: bold;
+    margin-left: 30%;
+    align-items: center;
+
+  }
+
+
+  .main
+  {background-color: rgba( 255, 255, 255, 0.7 );
+      align-items: center;
+      margin-left: 100px;
+      width: 1000px;
+      height:1100px;
+      border: 3px solid #78766B;
+      margin: 30px;
+      margin-bottom: 10px;
+      border-radius: 6px;}
+
+
+.productname{font-size: 30px;
 font-weight: bold;}
 
 .productrating
-{font-size:40px;
+{font-size:25px;
 font-weight:30;}
 
-.main
-{width: 1000px;
-margin: 0 auto;}
+
 
 .itemslist
 {display: flex;}
 
 .recitem
 {display: flex;
- width: 300px;
+  background-color: #FFFFFF;
+ width: 200px;
  height:200px;
  border: 1px solid black;
  margin: 20px;
@@ -36,10 +61,18 @@ margin: 0 auto;}
 .itemslist2
 {display: flex;}
 .recitems2
-{display: flex;}
+{display: flex;
+    background-color: #FFFFFF;
+  width: 200px;
+  height:200px;
+  border: 1px solid black;
+  margin: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
 .item
 {display: flex;
-  width: 300px;
+  width: 200px;
   height:200px;
   border: 1px solid black;
   margin: 20px;
