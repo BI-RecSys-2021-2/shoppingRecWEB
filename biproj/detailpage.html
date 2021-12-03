@@ -64,6 +64,14 @@
  {margin-left:10px;}
  .productname{font-size: 60px;
  font-weight: bold;}
+ .name{font-size: :30px;
+ line-height: 3em;}
+ .prize{font-size: :30px;
+line-height: 3em;}
+.weight{font-size: :30px;
+line-height: 3em;}
+.numberofstars{font-size: :30px;
+line-height: 6em;}
 
  .productrating
  {font-size:40px;
@@ -94,7 +102,8 @@
  .recitems2
  {display: flex;}
   .item
-  {display: flex;
+  {display: inline-block;
+    float: left;
     width: 300px;
     height:200px;
     border: 1px solid black;
@@ -121,27 +130,34 @@
   </div>
 
 
-<div class="main">
-  <div class="productname">Product name</div><br>
-  <div class="productrating">ratings</div>
+ <div class="main">
 
-  <div class="items">
-    <div class="item">item1</div>
+    <div class="productname">Product name</div><br>
+    <div class="productrating">ratings</div>
 
+   <div class="items">
+     <div class="item">item1</div>
 
   </div>
 
-  <div class="description">weight</div><br>
-  <div class="description">frshness</div>
-
+<div class="right">
+ <div class="vertical-align: top;">
+ </>
+  <div class="name">name</div>
+  <div class="prize">prize</div>
+  <div class="weight">weight</div>
+  <div class="numberofstars">number of stars</div>
+ </div>
 </div>
 
 
-
-<div>Recommendation List "FOR YOU"</div>
+<div class="left">
+ <div>Recommendation List "FOR YOU"</div>
+</div>
 <div class="recommendation">
 
   <div class="itemslist">
+
     <div class="recitem">item1</div>
     <div class="recitem">item2</div>
     <div class="recitem">item3</div>
