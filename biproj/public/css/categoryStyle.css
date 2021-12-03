@@ -1,6 +1,7 @@
+
 .nav
 {height: 70px;
-    border-bottom: 2px solid black;
+    border-bottom: 4px solid #E3C321;
     display: flex;
     align-items: center;
 }
@@ -8,6 +9,8 @@
 { margin: 20px;}
 
 .title{font-size: 60px;
+  font-style:italic;
+    color:#E3C321;
     font-weight: bold;
     margin-left: 30%;
     align-items: center;
@@ -31,11 +34,12 @@
 {display: flex;
     align-items: center;}
 .category
-{display: flex;
+{background-color: #FFFFFF;
+  display: flex;
     align-items: center;
     width: 200px;
     height:200px;
-    border: 3px solid black;
+    border: 3px solid #E3C321;
     margin: 30px;
     margin-bottom: 10px;
     border-radius: 6px;

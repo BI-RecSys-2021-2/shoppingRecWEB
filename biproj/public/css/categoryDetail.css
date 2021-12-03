@@ -22,6 +22,8 @@
   flex-wrap: wrap;}
 
 
+.wrap{}
+
 .product {
       flex-wrap : wrap;
           width: 200px;
@@ -30,6 +32,12 @@
           margin: 20px;
           margin-bottom: 10px;
           border-radius: 6px;}
+
+.productname{position: absolute; opacity: 0;}
+
+.product:hover #productname{ opacity: 1;}
+
+
 
 
 .productname{font-size: 60px;

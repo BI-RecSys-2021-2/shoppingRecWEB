@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="Generator" content="EditPlus@">
@@ -7,12 +8,13 @@
     <meta name="Keywords" content="">
     <meta name="Description" content="">
 
-<link rel="stylesheet" href="./public/css/categoryDetail.css">
+    <link rel="stylesheet" href="./public/css/categoryDetail.css">
 
     <script type="text/javascript">
+        
         temp = location.href.split("?");
-        categories=temp[1].split(":");
-        category=categories[0];
+        categories = temp[1].split(":");
+        category = categories[0];
     </script>
 
     <script src='https://d3js.org/d3.v4.min.js'></script>
@@ -25,45 +27,50 @@
 
 
 <body>
-<div class="nav">
-    <div class="nav-item"><a href="main.html"><img id="home" src = "image/home.png" width="30px"; height="30px"></a></div>
-    <div class="nav-item"><a href="categorypage.html"><img id="bar" src = "image/bar.png" width="35px"; height="35px"></a></div>
-    <div class="title">FOR YOU</div>
-</div>
+    <div class="nav">
+        <div class="nav-item"><a href="main.html"><img id="home" src="image/home.png" width="30px" ; height="30px"></a>
+        </div>
+        <div class="nav-item"><a href="categorypage.html"><img id="bar" src="image/bar.png" width="35px" ;
+                    height="35px"></a></div>
+        <div class="title">FOR YOU</div>
+    </div>
 
-<div class="container">
-<script>
-    const csv = d3.csv(`data/${category}.csv`)
-    csv.then(function(data) {
-        data.forEach(function(d) {
-            d3.select('body')
-                .selectAll('div')
-                .data(d)
-                .enter()
-                .append('div')
-
-
-            d3.image(
-                d.url, {crossOrigin: "anonymous"}).then((img) => {
-                img.className = "product";
-                document.body.append(img);
-          }).catch(function(err) {
-                console.log('then error : ', err);
-            });
+    <div class="container">
+        <script>
+            const csv = d3.csv(`data/${category}.csv`)
+            csv.then(function (data) {
+                data.forEach(function (d) {
+                    d3.select('body')
+                        .selectAll('div')
+                        .data(d)
+                        .enter()
+                        .append('div')
 
 
+                    d3.image(
+                        d.url, {
+                            crossOrigin: "anonymous"
+                        }).then((img) => {
+                        var a_url = document.createElement('a');
+                        a_url.href = "detailpage.html?"+category+":"+d.search
+                        img.className = "product";
+                        a_url.appendChild(img)
+                        document.body.append(a_url);
+                    }).catch(function (err) {
+                        console.log('then error : ', err);
+                    });
 
 
-        });
 
 
-    })
+                });
 
 
-
-</script>
-</div>
+            })
+        </script>
+    </div>
 </body>
+
 </html>
 
 <!--document.body.append(d.search);-->

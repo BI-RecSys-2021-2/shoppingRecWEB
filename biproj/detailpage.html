@@ -1,112 +1,156 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<script>
-  package com.call.python;
+  <script>
+    package com.call.python;
 
-  import org.apache.commons.exec.CommandLine;
-  import org.apache.commons.exec.DefaultExecutor;
-  import org.apache.commons.exec.PumpStreamHandler;
-  import java.io.ByteArrayOutputStream;
-  import java.io.IOException;
+    import org.apache.commons.exec.CommandLine;
+    import org.apache.commons.exec.DefaultExecutor;
+    import org.apache.commons.exec.PumpStreamHandler;
+    import java.io.ByteArrayOutputStream;
+    import java.io.IOException;
 
-  public class CallMain {
-      public static void main(String[] args)  {
-      	System.out.println("Python Call");
-          String[] command = new String[4];
-          command[0] = "python";
-          //command[1] = "\\workspace\\java-call-python\\src\\main\\resources\\test.py";
-          command[1] = "serch_product.py";
-          command[2] = "sausage";
+    public class CallMain {
+      public static void main(String[] args) {
+        System.out.println("Python Call");
+        String[] command = new String[4];
+        command[0] = "python";
+        //command[1] = "\\workspace\\java-call-python\\src\\main\\resources\\test.py";
+        command[1] = "serch_product.py";
+        command[2] = "sausage";
 
-          try {
-              execPython(command);
-          } catch (Exception e) {
-              e.printStackTrace();
-          }
+        try {
+          execPython(command);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
 
       public static void execPython(String[] command) throws IOException, InterruptedException {
-          CommandLine commandLine = CommandLine.parse(command[0]);
-          for (int i = 1, n = command.length; i < n; i++) {
-              commandLine.addArgument(command[i]);
-          }
+        CommandLine commandLine = CommandLine.parse(command[0]);
+        for (int i = 1, n = command.length; i < n; i++) {
+          commandLine.addArgument(command[i]);
+        }
 
-          ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-          PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
-          DefaultExecutor executor = new DefaultExecutor();
-          executor.setStreamHandler(pumpStreamHandler);
-          int result = executor.execute(commandLine);
-          System.out.println("result: " + result);
-          System.out.println("output: " + outputStream.toString());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
+        DefaultExecutor executor = new DefaultExecutor();
+        executor.setStreamHandler(pumpStreamHandler);
+        int result = executor.execute(commandLine);
+        System.out.println("result: " + result);
+        System.out.println("output: " + outputStream.toString());
 
       }
 
-  }
-</script>
+    }
+  </script>
 
   <meta charset="UTF-8">
-  <meta name= "viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="style.css">
 
-<style media="screen">
-  .nav
-  {height: 70px;
-  border-bottom: 1px solid black;
-  display: flex;
-  align-items: center;
-  }
- .nav-itme
- {margin-left:10px;}
- .productname{font-size: 60px;
- font-weight: bold;}
+  <style media="screen">
+    .nav {
+      height: 70px;
+      border-bottom: 1px solid black;
+      display: flex;
+      align-items: center;
+    }
 
- .productrating
- {font-size:40px;
- font-weight:30;}
+    .nav-itme {
+      margin-left: 10px;
+    }
 
- .main
- {width: 1000px;
- margin: 0 auto;}
+    .productname {
+      font-size: 60px;
+      font-weight: bold;
+    }
 
-.itemslist
-{display: flex;}
+    .name {
+      font-size: :30px;
+      line-height: 3em;
+    }
 
- .recitem
- {display: flex;
-   width: 300px;
-   height:200px;
-   border: 1px solid black;
-   margin: 20px;
-   margin-bottom: 10px;
-   border-radius: 4px;
- }
- .description{
-   margin-bottom: 20px;
- }
+    .prize {
+      font-size: :30px;
+      line-height: 3em;
+    }
 
- .itemslist2
- {display: flex;}
- .recitems2
- {display: flex;}
-  .item
-  {display: flex;
-    width: 300px;
-    height:200px;
-    border: 1px solid black;
-    margin: 20px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
+    .weight {
+      font-size: :30px;
+      line-height: 3em;
+    }
 
-</style>
+    .numberofstars {
+      font-size: :30px;
+      line-height: 6em;
+    }
+
+    .productrating {
+      font-size: 40px;
+      font-weight: 30;
+    }
+
+    .main {
+      width: 1000px;
+      margin: 0 auto;
+    }
+
+    .itemslist {
+      display: flex;
+    }
+
+    .recitem {
+      display: flex;
+      width: 300px;
+      height: 200px;
+      border: 1px solid black;
+      margin: 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .description {
+      margin-bottom: 20px;
+    }
+
+    .itemslist2 {
+      display: flex;
+    }
+
+    .recitems2 {
+      display: flex;
+    }
+
+    .item {
+      display: inline-block;
+      float: left;
+      width: 300px;
+      height: 200px;
+      border: 1px solid black;
+      margin: 20px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+  </style>
 
 
 
+  <script type="text/javascript">
+    temp = location.href.split("?");
+    categories = temp[1].split(":");
+    category_all = decodeURIComponent(categories[0]);
+    category = decodeURIComponent(categories[1]);
+  </script>
+
+  <script src='https://d3js.org/d3.v4.min.js'></script>
+  <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
 </head>
 
 <body>
@@ -121,43 +165,110 @@
   </div>
 
 
-<div class="main">
-  <div class="productname">Product name</div><br>
-  <div class="productrating">ratings</div>
+  <div class="main">
 
-  <div class="items">
-    <div class="item">item1</div>
+    <div class="productname">Product name</div><br>
+    <div class="productrating">ratings</div>
 
+    <div class="items">
+      <div class="item">item1</div>
 
-  </div>
+    </div>
 
-  <div class="description">weight</div><br>
-  <div class="description">frshness</div>
-
-</div>
-
-
-
-<div>Recommendation List "FOR YOU"</div>
-<div class="recommendation">
-
-  <div class="itemslist">
-    <div class="recitem">item1</div>
-    <div class="recitem">item2</div>
-    <div class="recitem">item3</div>
-    <div class="recitem">item4</div>
-    <div class="recitem">item5</div>
-  </div>
+    <div class="right">
+      <div class="vertical-align: top;">
+        </>
+        <div class="name">name</div>
+        <div class="prize">prize</div>
+        <div class="weight">weight</div>
+        <div class="numberofstars">number of stars</div>
+      </div>
+    </div>
 
 
-  <div class="itemslist2">
-    <div class="recitem">item6</div>
-    <div class="recitem">item7</div>
-    <div class="recitem">item8</div>
-    <div class="recitem">item9</div>
-    <div class="recitem">item10</div>
-  </div>
-</div>
+    <div class="left">
+      <div>Recommendation List "FOR YOU"</div>
+    </div>
+    <div class="recommendation">
 
+      <div class="itemslist">
+
+        <div class="recitem">item1</div>
+        <div class="recitem">item2</div>
+        <div class="recitem">item3</div>
+        <div class="recitem">item4</div>
+        <div class="recitem">item5</div>
+      </div>
+
+
+      <div class="itemslist2">
+        <div class="recitem">item6</div>
+        <div class="recitem">item7</div>
+        <div class="recitem">item8</div>
+        <div class="recitem">item9</div>
+        <div class="recitem">item10</div>
+      </div>
+    </div>
+    <script>
+      const csv = d3.csv(`data/${category_all}.csv`)
+      csv.then(function (data) {
+
+        let target = data.filter(item => {
+          return item.search == category
+        })[0];
+
+        d3.select('.productname').text(target.name)
+        d3.select('.productrating').text(target['number of stars'])
+        d3.select('.name').text(target['name'])
+        d3.select('.prize').text(target['prize'])
+        d3.select('.weight').text(target['weight'])
+        d3.select('.numberofstars').text(target['number of stars'])
+        d3.select('.item').text('').append('img').attr('src', target.url).attr('style', "width:100%;height:100%")
+        var first = data.filter(item => {
+          return item.search != category
+        }).slice(0, 5);
+        console.log(first)
+        first.forEach((item_1,index) => {
+          d3.select('.itemslist').selectAll('.recitem').each(function (d, i) {
+            if(i == index){
+            d3.select(this).text('').append('a').attr('href','detailpage.html?'+category_all+":"+item_1.search).append('img').attr('src', item_1.url).attr('style',
+              "width:100%;height:100%")
+            }
+          })
+        });
+        var second = data.filter(item => {
+          return item.search != category
+        }).slice(-5);
+        second.forEach((item_1,index) => {
+          d3.select('.itemslist2').selectAll('.recitem').each(function (d, i) {
+            if(i == index){
+
+              d3.select(this).text('').append('a').attr('href','detailpage.html?'+category_all+":"+item_1.search).append('img').attr('src', item_1.url).attr('style',
+              "width:100%;height:100%")
+            }
+          })
+        });
+        // d3.image(
+        //   d.url, {
+        //     crossOrigin: "anonymous"
+        //   }).then((img) => {
+        //   var a_url = document.createElement('a');
+        //   a_url.href = "detailpage.html?" + d.search
+        //   img.className = "product";
+        //   a_url.appendChild(img)
+        //   d3.select('.recitem').append(a_url);
+        // }).catch(function (err) {
+        //   console.log('then error : ', err);
+        // });
+
+
+
+
+
+
+
+      })
+    </script>
 </body>
+
 </html>
