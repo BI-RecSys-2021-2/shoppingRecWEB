@@ -1,5 +1,5 @@
 body{
-  background-image: url('https://img.freepik.com/free-photo/flat-lay-composition-vegetables-with-copyspace_23-2148190210.jpg?size=626&ext=jpg');
+
   background-repeat: no-repeat;
   background-size : cover;
 }
@@ -14,6 +14,7 @@ body{
 
 .title{font-size: 60px;
   font-style:italic;
+    text-shadow:3px 3px 3px #000;
     font-weight: bold;
     color:#78766B;
     margin-left: 30%;
@@ -39,10 +40,8 @@ body{
           margin-bottom: 10px;
           border-radius: 6px;}
 
-.show{position: absolute;
-  opacity: 1;}
 
-.product:hover #show{ opacity: 1;}
+.product:hover { opacity: 1;}
 
 
 
