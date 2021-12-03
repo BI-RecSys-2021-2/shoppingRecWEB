@@ -33,16 +33,21 @@
         <div class="title">FOR YOU</div>
     </div>
 
-    <div class="container">
+    <div class="container"><div class="name"></div>
+
         <script>
+
+
             const csv = d3.csv(`data/${category}.csv`)
             csv.then(function (data) {
                 data.forEach(function (d) {
-                    d3.select('body')
-                        .selectAll('div')
-                        .data(d)
-                        .enter()
-                        .append('div')
+
+                  d3.select('body')
+                    .selectAll('div')
+                    .data(d)
+                    .enter()
+                    .append('div')
+
 
 
                     d3.image(
@@ -54,21 +59,22 @@
                         img.className = "product";
                         a_url.appendChild(img)
                         document.body.append(a_url);
+                        });
+
+
+
                     }).catch(function (err) {
                         console.log('then error : ', err);
                     });
 
 
-
-
                 });
 
-
-            })
         </script>
+
     </div>
 </body>
 
 </html>
 
-<!--document.body.append(d.search);-->
+<!--                    -->
