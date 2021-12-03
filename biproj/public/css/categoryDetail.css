@@ -5,7 +5,7 @@ body{
 }
 .nav
 {height: 70px;
-    border-bottom: 2px solid black;
+    border-bottom: 4px solid #78766B;;
     display: flex;
     align-items: center;
 }
@@ -13,7 +13,9 @@ body{
 { margin: 20px;}
 
 .title{font-size: 60px;
+  font-style:italic;
     font-weight: bold;
+    color:#78766B;
     margin-left: 30%;
     align-items: center;
 
@@ -32,14 +34,15 @@ body{
       flex-wrap : wrap;
           width: 200px;
           height:200px;
-          border: 2px solid black;
+          border: 4px solid #78766B;
           margin: 20px;
           margin-bottom: 10px;
           border-radius: 6px;}
 
-.productname{position: absolute; opacity: 0;}
+.show{position: absolute;
+  opacity: 1;}
 
-.product:hover #productname{ opacity: 1;}
+.product:hover #show{ opacity: 1;}
 
 
 
