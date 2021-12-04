@@ -33,48 +33,47 @@
         <div class="title">FOR YOU</div>
     </div>
 
-    <div class="container"><div class="name"></div>
-
-        <script>
-
-
-            const csv = d3.csv(`data/${category}.csv`)
-            csv.then(function (data) {
-                data.forEach(function (d) {
-
-                  d3.select('body')
-                    .selectAll('div')
-                    .data(d)
-                    .enter()
-                    .append('div')
+    <div class="container"> </div>
+      <script>
 
 
+          const csv = d3.csv(`data/${category}.csv`)
+          csv.then(function (data) {
+              data.forEach(function (d) {
 
-                    d3.image(
-                        d.url, {
-                            crossOrigin: "anonymous"
-                        }).then((img) => {
-                        var a_url = document.createElement('a');
-                        a_url.href = "detailpage.html?"+category+":"+d.search
-                        img.className = "product";
-                        a_url.appendChild(img)
-                        document.body.append(a_url);
-                        });
+                d3.select('body')
+                  .selectAll('div')
+                  .data(d)
+                  .enter()
+                  .append('div')
 
 
+                  d3.image(
+                      d.url, {
+                          crossOrigin: "anonymous"
+                      }).then((img) => {
+                      var a_url = document.createElement('a');
 
-                    }).catch(function (err) {
-                        console.log('then error : ', err);
-                    });
+                      a_url.href = "detailpage.html?"+category+":"+d.search
+
+                      a_url.appendChild(img).setAttribute('class','product');
+                      a_url.append(d.search);
+                      document.body.append(a_url);
+                      });
 
 
-                });
 
-        </script>
+                  }).catch(function (err) {
+                      console.log('then error : ', err);
+                  });
 
-    </div>
+
+              });
+
+      </script>
+
+
 </body>
 
 </html>
-
-<!--                    -->
+<!--img.className = "product";-->

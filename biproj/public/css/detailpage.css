@@ -48,7 +48,9 @@ font-weight:30;}
   color:#78766B;
 font-weight:30;}
 
-
+.list{font-size: 30px;
+  color:#78766B;
+font-weight: bold;}
 .itemslist
 {display: flex;}
 

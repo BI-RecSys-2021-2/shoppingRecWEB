@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Generator" content="EditPlus@">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+
+    <link rel="stylesheet" href="./public/css/categoryDetail.css">
+
+    <script type="text/javascript">
+
+        temp = location.href.split("?");
+        categories = temp[1].split(":");
+        category = categories[0];
+    </script>
+
+    <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+
+    <title>FOR YOU</title>
+</head>
+
+
+<body>
+    <div class="nav">
+        <div class="nav-item"><a href="categorypage.html"><img id="bar" src="image/bar.png" width="35px" ;
+                    height="35px"></a></div>
+        <div class="title">FOR YOU</div>
+    </div>
+<div class=main>
+    <div class="container">
+       <div class="pic">1</div>
+       <div class="name">1</div>
+     </div>
+     <div class="container">
+        <div class="pic">1</div>
+        <div class="name">1</div>
+      </div>
+      <div class="container">
+         <div class="pic">1</div>
+         <div class="name">1</div>
+       </div>
+       <div class="container">
+          <div class="pic">1</div>
+          <div class="name">1</div>
+        </div>
+        <div class="container">
+           <div class="pic">1</div>
+           <div class="name">1</div>
+         </div>
+         <div class="container">
+            <div class="pic">1</div>
+            <div class="name">1</div>
+          </div>
+          </div>
+      <script>
+
+
+          const csv = d3.csv(`data/dessert.csv`)
+          csv.then(function (data) {
+              data.forEach(function (d) {
+
+
+                  let target = data.filter(item => {
+                    return item.search == category
+                  })[0];
+
+                d3.select('.main').select('.container').selectAll('.name')..each(function (d, i) {
+                  if(i == index){
+                  d3.select(this).text('').append('a').append('img').attr('src', target.url).attr('style',
+                    "width:100%;height:100%")
+                  }
+                })
+                d3.selectAll('.pic').text('').append('img').attr('src', target.url).attr('style', "width:100%;height:100%")
+
+
+
+
+
+
+
+
+
+              });
+
+      </script>
+
+
+</body>
+
+</html>
