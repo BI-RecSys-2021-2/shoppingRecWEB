@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="./public/css/categoryDetail.css">
 
     <script type="text/javascript">
-
         temp = location.href.split("?");
         categories = temp[1].split(":");
         category = categories[0];
@@ -34,47 +33,61 @@
     </div>
 
     <div class="container"><div class="name"></div>
-
         <script>
-
-
             const csv = d3.csv(`data/${category}.csv`)
+            var Obj = {}
             csv.then(function (data) {
                 data.forEach(function (d) {
-
-                  d3.select('body')
-                    .selectAll('div')
-                    .data(d)
-                    .enter()
-                    .append('div')
-
-
+                    // d3.select('body')
+                    //   .selectAll('div')
+                    //   .data(d)
+                    //   .enter()
+                    //   .append('div')
 
                     d3.image(
                         d.url, {
                             crossOrigin: "anonymous"
                         }).then((img) => {
-                        var a_url = document.createElement('a');
+                        var obj = document.createElement('div')
+                        var a_img = document.createElement('a')
+                        var img_div = document.createElement('div')
+                        var a_url = document.createElement('a')
+                        var title_div = document.createElement('div')
+                        var star_div = document.createElement('div')
+                        var star_span = document.createElement('span')
+                        var price_div = document.createElement('div')
+                        a_img.href = "detailpage.html?"+category+":"+d.search
                         a_url.href = "detailpage.html?"+category+":"+d.search
-                        img.className = "product";
-                        a_url.appendChild(img)
-                        document.body.append(a_url);
-                        });
 
+                        obj.className = "product"
+                        img.className = "product-img"
+                        img_div.className = "product-img-div"
+                        title_div.className = "product-title"
+                        a_url.className = "product-title-link"
+                        star_div.className = "star-div"
+                        price_div.className = "price-div"
 
+                        var stars = d.stars.substr(0,3)
+                        stars *= 10
+                        star_span.style.width = `${stars}%`;
 
+                        star_div.appendChild(star_span)
+                        img_div.append(img)
+                        a_img.appendChild(img_div)
+                        title_div.append(d.name)
+                        a_url.appendChild(title_div)
+                        price_div.append(d.prize)
+                        obj.appendChild(a_img)
+                        obj.appendChild(a_url)
+                        obj.appendChild(price_div)
+                        obj.appendChild(star_div)
+                        document.body.append(obj)
+                        })
                     }).catch(function (err) {
-                        console.log('then error : ', err);
-                    });
-
-
-                });
-
+                        console.log('then error : ', err)
+                    })
+                })
         </script>
-
     </div>
 </body>
-
 </html>
-
-<!--                    -->
