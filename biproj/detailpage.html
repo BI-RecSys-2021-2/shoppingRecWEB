@@ -2,148 +2,121 @@
 <html lang="en">
 
 <head>
-  <script type="text/javascript">
-    temp = location.href.split("?");
-    categories = temp[1].split(":");
-    category_all = decodeURIComponent(categories[0]);
-    category = decodeURIComponent(categories[1]);
-  </script>
+    <script type="text/javascript">
+        temp = location.href.split("?");
+        categories = temp[1].split(":");
+        category_all = decodeURIComponent(categories[0]);
+        category = decodeURIComponent(categories[1]);
+    </script>
 
-  <script src='https://d3js.org/d3.v4.min.js'></script>
-  <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
-  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
-  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+    <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
 
-  <script type="text/javascript">
-
-    function getProducts(consequents) {
-      const prod = d3.csv("../../src/data/dataymx.csv")
-      const result = []
-      prod.then(function (data) {
-        data.forEach(function (d) {
-          const index = consequents.indexOf(d.search)
-          if (index !== -1) {
-            result.push(consequents[index])
-          }
-        })
-      })
-      console.log(result)
-    }
-
-    function searchProduct(antecedent) {
-      const apriori = d3.csv("../../apriori_algorithm/data/output/minS_01_minL_1.csv")
-      apriori.then(function (data) {
-        const result = []
-        data.forEach(function (d) {
-          if (antecedent === d.antecedents) {
-            result.push(d.consequents)
-          }
-        })
-        getProducts(result)
-      })
-    }
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>FOR YOU</title>
-<link rel="stylesheet" href="./public/css/detailpage.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FOR YOU</title>
+    <link rel="stylesheet" href="./public/css/detailpage.css">
 </head>
 
 <body>
 
+<div class="nav">
+    <div class="nav-item">
+        <a href="categorypage.html">
+            <img id="bar" src="image/bar.png" width="35px" ; height="35px">
+        </a>
+    </div>
+    <div class="title">FOR YOU</div>
+</div>
 
-  <div class="nav">
-      <div class="nav-item"><a href="categorypage.html"><img id="bar" src = "image/bar.png" width="35px"; height="35px"></a></div>
-      <div class="title">FOR YOU</div>
-  </div>
-
-
-
-  <div class="main">
-      <div class="productrating">ratings</div>
-
-      <div class="items">
-        <div class="item">item1</div>
-      </div>
-
-    <div class="right">
-      <div class="vertical-align-top">
-        <div class="name">name</div>
-        <div class="prize">prize</div>
-        <div class="weight">weight</div>
-        <div class="numberofstars">number of stars</div>
-      </div>
+<div class="main">
+    <div>
+        <div class="item"></div>
+        <div class="product-info">
+            <div class="product-name">title</div>
+            <div class="product-rating" id="rating"></div>
+            <div class="product-price">prize</div>
+            <div class="product-weight">weight</div>
+        </div>
     </div>
 
-
-    <div class="left">
-      <div>Recommendation List "FOR YOU"</div>
+    <div class="recommendation" id="rec">
+        <div class="recmnd-title">Recommendation List "FOR YOU"</div>
     </div>
-    <div class="recommendation">
-
-      <div class="itemslist">
-
-        <div class="recitem">item1</div>
-        <div class="recitem">item2</div>
-        <div class="recitem">item3</div>
-        <div class="recitem">item4</div>
-        <div class="recitem">item5</div>
-      </div>
-
-
-      <div class="itemslist2">
-        <div class="recitem">item6</div>
-        <div class="recitem">item7</div>
-        <div class="recitem">item8</div>
-        <div class="recitem">item9</div>
-        <div class="recitem">item10</div>
-      </div>
-    </div>
-  </div>
-    <script>
-      const csv = d3.csv(`data/${category_all}.csv`)
-      csv.then(function (data) {
-
+</div>
+<script>
+    const csv = d3.csv(`data/${category_all}.csv`)
+    csv.then(function (data) {
         let target = data.filter(item => {
-          return item.search == category
+            return item.search == category
         })[0];
 
-        d3.select('.productname').text(target.name)
-        d3.select('.productrating').text(target['number of stars'])
-        d3.select('.name').text(target['name'])
-        d3.select('.prize').text(target['prize'])
-        d3.select('.weight').text(target['weight'])
-        d3.select('.numberofstars').text(target['number of stars'])
-        d3.select('.item').text('').append('img').attr('src', target.url).attr('style', "width:100%;height:100%")
-        var first = data.filter(item => {
-          return item.search != category
-        }).slice(0, 5);
-        //console.log(first)
-        first.forEach((item_1,index) => {
-          d3.select('.itemslist').selectAll('.recitem').each(function (d, i) {
-            if(i == index){
-            d3.select(this).text('').append('a').attr('href','detailpage.html?'+category_all+":"+item_1.search).append('img').attr('src', item_1.url).attr('style',
-              "width:100%;height:100%")
-            }
-          })
-        });
-        var second = data.filter(item => {
-          return item.search != category
-        }).slice(-5);
-        second.forEach((item_1,index) => {
-          d3.select('.itemslist2').selectAll('.recitem').each(function (d, i) {
-            if(i == index){
+        d3.select('.product-name').text(target['name'])
+        d3.select('.product-price').text(target['prize'])
+        d3.select('.product-weight').text(`weight: ${target['weight']}`)
 
-              d3.select(this).text('').append('a').attr('href','detailpage.html?'+category_all+":"+item_1.search).append('img').attr('src', item_1.url).attr('style',
-              "width:100%;height:100%")
-            }
-          })
-        });
+        var star_span = document.createElement('span')
+        star_span.className = "ratings"
+        var stars = target['stars'].substr(0, 3)
+        stars *= 8
+        star_span.style.width = `${stars}%`;
+        document.getElementById('rating').appendChild(star_span)
 
-      })
-    </script>
+        d3.select('.product-rating').text()
+        d3.select('.item').text('').append('img').attr('src', target.url)
+    })
+
+    const apriori = d3.csv("../../apriori_algorithm/data/output/minS_01_minL_1.csv")
+    const prod = d3.csv("../../src/data/dataymx.csv")
+    const products = []
+    apriori.then(function (data) {
+        const result = []
+        data.forEach(function (d) {
+            if (category === d.antecedents) {
+                result.push(d.consequents)
+            }
+        })
+
+        prod.then(function (data) {
+            data.forEach(function (d) {
+                const index = result.indexOf(d.search)
+                if (index !== -1) {
+                    products.push(result[index])
+                }
+            })
+
+            const recCsv = d3.csv('./data/products.csv')
+            recCsv.then(function (data) {
+                data.forEach(function (d) {
+                    // console.log(d.search)
+                    if (result.includes(d.search)) {
+                        d3.image(
+                            d.url, {
+                                crossOrigin: "anonymous"
+                            }).then((img) => {
+                            var obj = document.createElement('div')
+                            var a_img = document.createElement('a')
+                            var img_div = document.createElement('div')
+
+                            a_img.href = "detailpage.html?" + d.category + ":" + d.search
+                            obj.className = "product"
+                            img.className = "product-img"
+                            img_div.className = "product-img-div"
+
+                            img_div.append(img)
+                            a_img.appendChild(img_div)
+                            obj.appendChild(a_img)
+                            document.getElementById('rec').appendChild(obj)
+                        })
+                    }
+                })
+            })
+        })
+    })
+</script>
 </body>
 
 </html>
