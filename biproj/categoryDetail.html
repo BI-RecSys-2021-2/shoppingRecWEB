@@ -35,7 +35,6 @@
     <div class="container"><div class="name"></div>
         <script>
             const csv = d3.csv(`data/${category}.csv`)
-            var Obj = {}
             csv.then(function (data) {
                 data.forEach(function (d) {
                     // d3.select('body')

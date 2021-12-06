@@ -2,59 +2,6 @@
 <html lang="en">
 
 <head>
-
-  <script>
-    package com.call.python;
-
-    import org.apache.commons.exec.CommandLine;
-    import org.apache.commons.exec.DefaultExecutor;
-    import org.apache.commons.exec.PumpStreamHandler;
-    import java.io.ByteArrayOutputStream;
-    import java.io.IOException;
-
-    public class CallMain {
-      public static void main(String[] args) {
-        System.out.println("Python Call");
-        String[] command = new String[4];
-        command[0] = "python";
-        //command[1] = "\\workspace\\java-call-python\\src\\main\\resources\\test.py";
-        command[1] = "serch_product.py";
-        command[2] = "sausage";
-
-        try {
-          execPython(command);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-
-      public static void execPython(String[] command) throws IOException, InterruptedException {
-        CommandLine commandLine = CommandLine.parse(command[0]);
-        for (int i = 1, n = command.length; i < n; i++) {
-          commandLine.addArgument(command[i]);
-        }
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
-        DefaultExecutor executor = new DefaultExecutor();
-        executor.setStreamHandler(pumpStreamHandler);
-        int result = executor.execute(commandLine);
-        System.out.println("result: " + result);
-        System.out.println("output: " + outputStream.toString());
-
-      }
-
-    }
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-<link rel="stylesheet" href="./public/css/detailpage.css">
-
-
-
   <script type="text/javascript">
     temp = location.href.split("?");
     categories = temp[1].split(":");
@@ -66,11 +13,45 @@
   <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
   <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
   <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+
+  <script type="text/javascript">
+
+    function getProducts(consequents) {
+      const prod = d3.csv("../../src/data/dataymx.csv")
+      const result = []
+      prod.then(function (data) {
+        data.forEach(function (d) {
+          const index = consequents.indexOf(d.search)
+          if (index !== -1) {
+            result.push(consequents[index])
+          }
+        })
+      })
+      console.log(result)
+    }
+
+    function searchProduct(antecedent) {
+      const apriori = d3.csv("../../apriori_algorithm/data/output/minS_01_minL_1.csv")
+      apriori.then(function (data) {
+        const result = []
+        data.forEach(function (d) {
+          if (antecedent === d.antecedents) {
+            result.push(d.consequents)
+          }
+        })
+        getProducts(result)
+      })
+    }
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>FOR YOU</title>
+<link rel="stylesheet" href="./public/css/detailpage.css">
 </head>
 
 <body>
-
-
 
 
   <div class="nav">
@@ -81,20 +62,14 @@
 
 
   <div class="main">
-
-    <div class="productname">Product name</div><br>
       <div class="productrating">ratings</div>
 
       <div class="items">
         <div class="item">item1</div>
-
       </div>
-
-
 
     <div class="right">
       <div class="vertical-align-top">
-        </>
         <div class="name">name</div>
         <div class="prize">prize</div>
         <div class="weight">weight</div>
@@ -145,7 +120,7 @@
         var first = data.filter(item => {
           return item.search != category
         }).slice(0, 5);
-        console.log(first)
+        //console.log(first)
         first.forEach((item_1,index) => {
           d3.select('.itemslist').selectAll('.recitem').each(function (d, i) {
             if(i == index){
