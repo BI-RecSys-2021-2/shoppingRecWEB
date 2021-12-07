@@ -151,6 +151,10 @@ input[type="checkbox"] {
     text-overflow: ellipsis;
 }
 
+.rec-title-each:hover {
+    color: darkred;
+}
+
 .rec-price-item {
     display: inline-block;
     margin-top: 20px;

@@ -47,7 +47,7 @@
     </div>
 
     <div class="recommendation">
-        <div class="rec-title">Recommendation List "FOR YOU"</div>
+        <div class="rec-title"></div>
         <div>
             <div class="rec-list" id="rec-list"></div>
             <div class="rec-price">
@@ -80,7 +80,7 @@
         d3.select('.item').text('').append('img').attr('src', target.url)
     })
 
-    const apriori = d3.csv("../../apriori_algorithm/data/output/minS_01_minL_1.csv")
+    const apriori = d3.csv("../../apriori_algorithm/data/output/minS_005_minL_1.csv")
     const prod = d3.csv("../../src/data/dataymx.csv")
     const products = []
     apriori.then(function (data) {
@@ -111,6 +111,7 @@
                             d.url, {
                                 crossOrigin: "anonymous"
                             }).then((img) => {
+                            document.querySelector(".rec-title").textContent = 'Recommendation List \"FOR YOU\"'
                             var rec_list = document.createElement('div')
                             var rec_price = document.createElement('div')
                             var rec_price_each = document.createElement('p')
@@ -147,6 +148,49 @@
                         idx += 1
                     }
                 })
+
+                if (idx === 0) {
+                    const recCsv = d3.csv(`./data/${category_all}.csv`)
+                    recCsv.then(function (data) {
+                        data.forEach(function (d) {
+                            if (category === d.search) {
+                                return;
+                            }
+                            if (idx >= 6) {
+                                return false;
+                            }
+                            d3.image(
+                                d.url, {
+                                    crossOrigin: "anonymous"
+                                }).then((img) => {
+                                document.querySelector(".rec-title").textContent = 'Similar Products'
+                                document.querySelector(".rec-price-sum").textContent = ''
+                                var rec_list = document.createElement('div')
+                                var rec_price = document.createElement('div')
+                                var rec_price_each = document.createElement('p')
+                                var rec_title_each = document.createElement('p')
+                                var a_img = document.createElement('a')
+                                var img_div = document.createElement('div')
+
+                                a_img.href = "detailpage.html?" + category_all + ":" + d.search
+                                rec_list.className = "product"
+                                img.className = "product-img"
+                                img_div.className = "product-img-div"
+                                rec_price.className = "price-list"
+                                rec_title_each.className = "rec-title-each"
+                                rec_price_each.className = "rec-price-item"
+
+                                rec_title_each.append(d.name)
+                                img_div.append(img)
+                                a_img.appendChild(img_div)
+                                rec_list.appendChild(a_img)
+                                img_div.appendChild(rec_title_each)
+                                document.getElementById('rec-list').appendChild(rec_list)
+                            })
+                            idx += 1
+                        })
+                    })
+                }
             })
         })
     })
