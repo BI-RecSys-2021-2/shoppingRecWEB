@@ -2,173 +2,155 @@
 <html lang="en">
 
 <head>
+    <script type="text/javascript">
+        temp = location.href.split("?");
+        categories = temp[1].split(":");
+        category_all = decodeURIComponent(categories[0]);
+        category = decodeURIComponent(categories[1]);
+    </script>
 
-  <script>
-    package com.call.python;
+    <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+    <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
+    <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
 
-    import org.apache.commons.exec.CommandLine;
-    import org.apache.commons.exec.DefaultExecutor;
-    import org.apache.commons.exec.PumpStreamHandler;
-    import java.io.ByteArrayOutputStream;
-    import java.io.IOException;
-
-    public class CallMain {
-      public static void main(String[] args) {
-        System.out.println("Python Call");
-        String[] command = new String[4];
-        command[0] = "python";
-        //command[1] = "\\workspace\\java-call-python\\src\\main\\resources\\test.py";
-        command[1] = "serch_product.py";
-        command[2] = "sausage";
-
-        try {
-          execPython(command);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-
-      public static void execPython(String[] command) throws IOException, InterruptedException {
-        CommandLine commandLine = CommandLine.parse(command[0]);
-        for (int i = 1, n = command.length; i < n; i++) {
-          commandLine.addArgument(command[i]);
-        }
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PumpStreamHandler pumpStreamHandler = new PumpStreamHandler(outputStream);
-        DefaultExecutor executor = new DefaultExecutor();
-        executor.setStreamHandler(pumpStreamHandler);
-        int result = executor.execute(commandLine);
-        System.out.println("result: " + result);
-        System.out.println("output: " + outputStream.toString());
-
-      }
-
-    }
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-<link rel="stylesheet" href="./public/css/detailpage.css">
-
-
-
-  <script type="text/javascript">
-    temp = location.href.split("?");
-    categories = temp[1].split(":");
-    category_all = decodeURIComponent(categories[0]);
-    category = decodeURIComponent(categories[1]);
-  </script>
-
-  <script src='https://d3js.org/d3.v4.min.js'></script>
-  <script src="https://d3js.org/d3-dsv.v2.min.js"></script>
-  <script src="https://d3js.org/d3-dsv.v1.min.js"></script>
-  <script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FOR YOU</title>
+    <link rel="stylesheet" href="./public/css/detailpage.css">
+    <script type="text/javascript" src="./public/js/sumPrice.js"></script>
 </head>
 
 <body>
 
+<div class="nav">
+    <div class="nav-item">
+        <a href="categorypage.html">
+            <img id="bar" src="image/bar.png" width="35px" ; height="35px">
+        </a>
+    </div>
+    <div class="title-div">
+        <div class="title">FOR YOU</div>
+    </div>
+</div>
 
-
-
-  <div class="nav">
-      <div class="nav-item"><a href="categorypage.html"><img id="bar" src = "image/bar.png" width="35px"; height="35px"></a></div>
-      <div class="title">FOR YOU</div>
-  </div>
-
-
-
-  <div class="main">
-
-    <div class="productname">Product name</div><br>
-      <div class="productrating">ratings</div>
-
-      <div class="items">
-        <div class="item">item1</div>
-
-      </div>
-
-
-
-    <div class="right">
-      <div class="vertical-align-top">
-        </>
-        <div class="name">name</div>
-        <div class="prize">prize</div>
-        <div class="weight">weight</div>
-        <div class="numberofstars">number of stars</div>
-      </div>
+<div class="main">
+    <div>
+        <div class="item"></div>
+        <div class="product-info">
+            <div class="product-name">title</div>
+            <div class="product-rating" id="rating"></div>
+            <div class="product-price">prize</div>
+            <div class="product-weight">weight</div>
+        </div>
     </div>
 
-
-    <div class="left">
-      <div>Recommendation List "FOR YOU"</div>
-    </div>
     <div class="recommendation">
-
-      <div class="itemslist">
-
-        <div class="recitem">item1</div>
-        <div class="recitem">item2</div>
-        <div class="recitem">item3</div>
-        <div class="recitem">item4</div>
-        <div class="recitem">item5</div>
-      </div>
-
-
-      <div class="itemslist2">
-        <div class="recitem">item6</div>
-        <div class="recitem">item7</div>
-        <div class="recitem">item8</div>
-        <div class="recitem">item9</div>
-        <div class="recitem">item10</div>
-      </div>
+        <div class="rec-title">Recommendation List "FOR YOU"</div>
+        <div>
+            <div class="rec-list" id="rec-list"></div>
+            <div class="rec-price">
+                <div class="rec-price-each" id="rec-price-each"></div>
+                <div class="rec-price-sum"></div>
+            </div>
+        </div>
     </div>
-  </div>
-    <script>
-      const csv = d3.csv(`data/${category_all}.csv`)
-      csv.then(function (data) {
-
+</div>
+<script>
+    const csv = d3.csv(`data/${category_all}.csv`)
+    csv.then(function (data) {
         let target = data.filter(item => {
-          return item.search == category
+            return item.search == category
         })[0];
 
-        d3.select('.productname').text(target.name)
-        d3.select('.productrating').text(target['number of stars'])
-        d3.select('.name').text(target['name'])
-        d3.select('.prize').text(target['prize'])
-        d3.select('.weight').text(target['weight'])
-        d3.select('.numberofstars').text(target['number of stars'])
-        d3.select('.item').text('').append('img').attr('src', target.url).attr('style', "width:100%;height:100%")
-        var first = data.filter(item => {
-          return item.search != category
-        }).slice(0, 5);
-        console.log(first)
-        first.forEach((item_1,index) => {
-          d3.select('.itemslist').selectAll('.recitem').each(function (d, i) {
-            if(i == index){
-            d3.select(this).text('').append('a').attr('href','detailpage.html?'+category_all+":"+item_1.search).append('img').attr('src', item_1.url).attr('style',
-              "width:100%;height:100%")
-            }
-          })
-        });
-        var second = data.filter(item => {
-          return item.search != category
-        }).slice(-5);
-        second.forEach((item_1,index) => {
-          d3.select('.itemslist2').selectAll('.recitem').each(function (d, i) {
-            if(i == index){
+        d3.select('.product-name').text(target['name'])
+        d3.select('.product-price').text(target['prize'])
+        d3.select('.product-weight').text(`weight: ${target['weight']}`)
+        d3.select('.rec-price-sum').text(`Total ${target['prize']}`)
 
-              d3.select(this).text('').append('a').attr('href','detailpage.html?'+category_all+":"+item_1.search).append('img').attr('src', item_1.url).attr('style',
-              "width:100%;height:100%")
-            }
-          })
-        });
+        var star_span = document.createElement('span')
+        star_span.className = "ratings"
+        var stars = target['stars'].substr(0, 3)
+        stars *= 8
+        star_span.style.width = `${stars}%`;
+        document.getElementById('rating').appendChild(star_span)
 
-      })
-    </script>
+            d3.select('.product-rating').text()
+        d3.select('.item').text('').append('img').attr('src', target.url)
+    })
+
+    const apriori = d3.csv("../../apriori_algorithm/data/output/minS_01_minL_1.csv")
+    const prod = d3.csv("../../src/data/dataymx.csv")
+    const products = []
+    apriori.then(function (data) {
+        const result = []
+        data.forEach(function (d) {
+            if (category === d.antecedents) {
+                result.push(d.consequents)
+            }
+        })
+
+        prod.then(function (data) {
+            data.forEach(function (d) {
+                const index = result.indexOf(d.search)
+                if (index !== -1) {
+                    products.push(result[index])
+                }
+            })
+
+            const recCsv = d3.csv('./data/products.csv')
+            recCsv.then(function (data) {
+                var idx = 0
+                data.forEach(function (d) {
+                    if (result.includes(d.search)) {
+                        if (idx >= 6) {
+                            return false;
+                        }
+                        d3.image(
+                            d.url, {
+                                crossOrigin: "anonymous"
+                            }).then((img) => {
+                            var rec_list = document.createElement('div')
+                            var rec_price = document.createElement('div')
+                            var rec_price_each = document.createElement('p')
+                            var rec_title_each = document.createElement('p')
+                            var a_img = document.createElement('a')
+                            var img_div = document.createElement('div')
+                            var checkbox = document.createElement('input')
+
+                            a_img.href = "detailpage.html?" + d.category + ":" + d.search
+                            rec_list.className = "product"
+                            img.className = "product-img"
+                            img_div.className = "product-img-div"
+                            checkbox.setAttribute('type', 'checkbox')
+                            checkbox.setAttribute('name', 'buy')
+                            var price = d.prize.replace(/[^0-9]/g, '')
+                            checkbox.setAttribute('value', price)
+                            checkbox.setAttribute('onclick', 'javascript:basket.checkItem();')
+                            checkbox.className = "product-check"
+                            rec_price.className = "price-list"
+                            rec_title_each.className = "rec-title-each"
+                            rec_price_each.className = "rec-price-item"
+
+                            rec_price_each.append(d.prize)
+                            rec_title_each.append(d.name)
+                            img_div.append(img)
+                            a_img.appendChild(img_div)
+                            rec_list.appendChild(checkbox)
+                            rec_list.appendChild(a_img)
+                            img_div.appendChild(rec_title_each)
+                            rec_list.appendChild(rec_price_each)
+                            document.getElementById('rec-list').appendChild(rec_list)
+                            document.getElementById('rec-price-each').appendChild(rec_price)
+                        })
+                        idx += 1
+                    }
+                })
+            })
+        })
+    })
+</script>
 </body>
 
 </html>
