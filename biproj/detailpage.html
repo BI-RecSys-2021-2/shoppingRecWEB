@@ -102,13 +102,77 @@
             const recCsv = d3.csv('./data/products.csv')
             recCsv.then(function (data) {
                 var idx = 0
+                var prod_arr = []
                 data.forEach(function (d) {
                     if (result.includes(d.search)) {
                         if (idx >= 6) {
                             return false;
                         }
+
+                        var dict = {}
+                        dict['search'] = d.search
+                        dict['name'] = d.name
+                        dict['stars'] = d.stars
+                        dict['prize'] = d.prize
+                        dict['weight'] = d.weight
+                        dict['freshness'] = d.freshness
+                        dict['url'] = d.url
+
+                        prod_arr.push(dict)
+                        idx += 1
+                    }
+                })
+
+
+                if (idx >= 1) {
+                    for (var i = 0; i < prod_arr.length; i++) {
+                        var d = prod_arr[i]
+                        if (category_all in d) {
+                            d3.image(
+                                d['url'], {
+                                    crossOrigin: "anonymous"
+                                }).then((img) => {
+                                document.querySelector(".rec-title").textContent = 'Recommendation List \"FOR YOU\"'
+                                var rec_list = document.createElement('div')
+                                var rec_price = document.createElement('div')
+                                var rec_price_each = document.createElement('p')
+                                var rec_title_each = document.createElement('p')
+                                var a_img = document.createElement('a')
+                                var img_div = document.createElement('div')
+                                var checkbox = document.createElement('input')
+
+                                a_img.href = "detailpage.html?" + d['category'] + ":" + d['search']
+                                rec_list.className = "product"
+                                img.className = "product-img"
+                                img_div.className = "product-img-div"
+                                checkbox.setAttribute('type', 'checkbox')
+                                checkbox.setAttribute('name', 'buy')
+                                var price = d['prize'].replace(/[^0-9]/g, '')
+                                checkbox.setAttribute('value', price)
+                                checkbox.setAttribute('onclick', 'javascript:basket.checkItem();')
+                                checkbox.className = "product-check"
+                                rec_price.className = "price-list"
+                                rec_title_each.className = "rec-title-each"
+                                rec_price_each.className = "rec-price-item"
+
+                                rec_price_each.append(d['prize'])
+                                rec_title_each.append(d['name'])
+                                img_div.append(img)
+                                a_img.appendChild(img_div)
+                                rec_list.appendChild(checkbox)
+                                rec_list.appendChild(a_img)
+                                img_div.appendChild(rec_title_each)
+                                rec_list.appendChild(rec_price_each)
+                                document.getElementById('rec-list').appendChild(rec_list)
+                                document.getElementById('rec-price-each').appendChild(rec_price)
+                            })
+                            prod_arr.splice(i, 1)
+                            i--;
+                        }
+                    }
+                    prod_arr.forEach(function (d) {
                         d3.image(
-                            d.url, {
+                            d['url'], {
                                 crossOrigin: "anonymous"
                             }).then((img) => {
                             document.querySelector(".rec-title").textContent = 'Recommendation List \"FOR YOU\"'
@@ -120,13 +184,13 @@
                             var img_div = document.createElement('div')
                             var checkbox = document.createElement('input')
 
-                            a_img.href = "detailpage.html?" + d.category + ":" + d.search
+                            a_img.href = "detailpage.html?" + d['category'] + ":" + d['search']
                             rec_list.className = "product"
                             img.className = "product-img"
                             img_div.className = "product-img-div"
                             checkbox.setAttribute('type', 'checkbox')
                             checkbox.setAttribute('name', 'buy')
-                            var price = d.prize.replace(/[^0-9]/g, '')
+                            var price = d['prize'].replace(/[^0-9]/g, '')
                             checkbox.setAttribute('value', price)
                             checkbox.setAttribute('onclick', 'javascript:basket.checkItem();')
                             checkbox.className = "product-check"
@@ -134,8 +198,8 @@
                             rec_title_each.className = "rec-title-each"
                             rec_price_each.className = "rec-price-item"
 
-                            rec_price_each.append(d.prize)
-                            rec_title_each.append(d.name)
+                            rec_price_each.append(d['prize'])
+                            rec_title_each.append(d['name'])
                             img_div.append(img)
                             a_img.appendChild(img_div)
                             rec_list.appendChild(checkbox)
@@ -145,11 +209,8 @@
                             document.getElementById('rec-list').appendChild(rec_list)
                             document.getElementById('rec-price-each').appendChild(rec_price)
                         })
-                        idx += 1
-                    }
-                })
-
-                if (idx === 0) {
+                    })
+                } else if (idx === 0) {
                     const recCsv = d3.csv(`./data/${category_all}.csv`)
                     recCsv.then(function (data) {
                         data.forEach(function (d) {
