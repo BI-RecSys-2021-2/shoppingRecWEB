@@ -105,10 +105,6 @@
                 var prod_arr = []
                 data.forEach(function (d) {
                     if (result.includes(d.search)) {
-                        if (idx >= 6) {
-                            return false;
-                        }
-
                         var dict = {}
                         dict['search'] = d.search
                         dict['name'] = d.name
@@ -117,15 +113,20 @@
                         dict['weight'] = d.weight
                         dict['freshness'] = d.freshness
                         dict['url'] = d.url
+                        dict['category'] = d.category
 
                         prod_arr.push(dict)
                         idx += 1
                     }
                 })
 
+                prod_arr.sort(function(a, b) {
+                    return b.freshness - a.freshness
+                })
 
                 if (idx >= 1) {
-                    for (var i = 0; i < prod_arr.length; i++) {
+                    var total = 0
+                    for (var i = 0; i < idx; i++) {
                         var d = prod_arr[i]
                         if (category_all in d) {
                             d3.image(
@@ -168,9 +169,14 @@
                             })
                             prod_arr.splice(i, 1)
                             i--;
+                            total += 1
                         }
                     }
+
                     prod_arr.forEach(function (d) {
+                        if (total > 6) {
+                            return false
+                        }
                         d3.image(
                             d['url'], {
                                 crossOrigin: "anonymous"
@@ -209,19 +215,20 @@
                             document.getElementById('rec-list').appendChild(rec_list)
                             document.getElementById('rec-price-each').appendChild(rec_price)
                         })
+                        total += 1
                     })
                 } else if (idx === 0) {
                     const recCsv = d3.csv(`./data/${category_all}.csv`)
                     recCsv.then(function (data) {
                         data.forEach(function (d) {
-                            if (category === d.search) {
+                            if (category === d['search']) {
                                 return;
                             }
                             if (idx >= 6) {
                                 return false;
                             }
                             d3.image(
-                                d.url, {
+                                d['url'], {
                                     crossOrigin: "anonymous"
                                 }).then((img) => {
                                 document.querySelector(".rec-title").textContent = 'Similar Products'
@@ -233,7 +240,7 @@
                                 var a_img = document.createElement('a')
                                 var img_div = document.createElement('div')
 
-                                a_img.href = "detailpage.html?" + category_all + ":" + d.search
+                                a_img.href = "detailpage.html?" + d['category'] + ":" + d['search']
                                 rec_list.className = "product"
                                 img.className = "product-img"
                                 img_div.className = "product-img-div"
@@ -241,7 +248,7 @@
                                 rec_title_each.className = "rec-title-each"
                                 rec_price_each.className = "rec-price-item"
 
-                                rec_title_each.append(d.name)
+                                rec_title_each.append(d['name'])
                                 img_div.append(img)
                                 a_img.appendChild(img_div)
                                 rec_list.appendChild(a_img)
